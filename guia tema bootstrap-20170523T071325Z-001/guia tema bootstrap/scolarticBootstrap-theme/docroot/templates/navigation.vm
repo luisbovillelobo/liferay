@@ -1,0 +1,44 @@
+<nav class="$nav_css_class mainNav" id="navigation">
+	<h1>
+		<span>#language("navigation")</span>
+	</h1>
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+		<button class="btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					#foreach ($nav_item in $nav_items)
+						#if ($nav_item.isSelected())
+							<li class="active">
+						#else
+							<li>
+						#end
+						
+						#set ($navPageUrl = $nav_item.getLayout().getExpandoBridge().getAttribute("nav-css-id"))
+
+						<a href="#$navPageUrl" class="page-scroll" $nav_item.getTarget()>$nav_item.icon() $nav_item.getName()</a>
+
+						#if ($nav_item.hasChildren())
+							<ul class="child-menu">
+								#foreach ($nav_child in $nav_item.getChildren())
+									#if ($nav_child.isSelected())
+										<li class="selected">
+									#else
+										<li>
+									#end
+										<a href="$nav_child.getURL()" $nav_child.getTarget()>$nav_child.getName()</a>
+										</li>
+								#end
+							</ul>
+						#end
+					</li>
+				#end
+				</ul>
+			<div> ## end of nav-collapse
+		</div> ## end of navbar-inner
+	</div> ## end of navbar-inverse
+</nav>
